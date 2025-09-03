@@ -12,8 +12,13 @@ public class Grid2d : MonoBehaviour
     [Range(0f, 1f)] public float obstacleChange = 0.2f; //20% ô thành tường
 
     Node[,] grid;
+    public Node[,] Grid => grid;
+
     public Node startNode;
     public Node goalNode;
+
+    public GameObject npcPrefab;
+    public GameObject npc;
 
     void Start()
     {
@@ -34,7 +39,6 @@ public class Grid2d : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                //Vector3 pos = new Vector3(x * cellSize, y * cellSize, 0);
                 Vector3 pos = transform.position + new Vector3(startPos.x + (x * cellSize), startPos.y - (y * cellSize), 0);
                 GameObject obj = Instantiate(nodePrefab, pos, Quaternion.identity, transform);
                 Node node = obj.GetComponent<Node>();
@@ -65,12 +69,20 @@ public class Grid2d : MonoBehaviour
     {
         startNode = GetRandomWalkableNode();
         startNode.SetTypeNode(NodeType.npc);
+        if(npc == null)
+        {
+            npc = Instantiate(npcPrefab, startNode.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            npc.GetComponent<NpcController>().ReSetPos(startNode.transform.position);
+        }
 
         do
         {
             goalNode = GetRandomWalkableNode();
-            goalNode.SetTypeNode(NodeType.goal);
         } while( goalNode == startNode );
+        goalNode.SetTypeNode(NodeType.goal);
     }
     Node GetRandomWalkableNode()
     {

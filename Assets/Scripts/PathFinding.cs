@@ -12,12 +12,14 @@ public class PathFinding : MonoBehaviour
 
     public void FindPath()
     {
-        var pathfinder = FindObjectOfType<PathFinding>();
-        path = pathfinder.FindPath(grid.startNode.gridPos, grid.goalNode.gridPos);
+        path = FindPath(grid.startNode.gridPos, grid.goalNode.gridPos);
         if(path == null)
         {
             Debug.Log("Không tìm thấy đường");
+            return;
         }
+        var Npc = FindObjectOfType<NpcController>();
+        Npc.StartMove(path);
     }
     public List<Node> FindPath(Vector2Int startPos, Vector2Int targetPos)
     {

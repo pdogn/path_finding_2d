@@ -603,6 +603,8 @@ MonoBehaviour:
   obstacleChange: 0.2
   startNode: {fileID: 0}
   goalNode: {fileID: 0}
+  npcPrefab: {fileID: 3325949562168419585, guid: d6c3623db389ff74cb1f87f67dfcc1f9, type: 3}
+  npc: {fileID: 0}
 --- !u!1 &1544798067
 GameObject:
   m_ObjectHideFlags: 0
